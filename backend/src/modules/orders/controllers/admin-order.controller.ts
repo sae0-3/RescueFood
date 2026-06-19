@@ -2,6 +2,10 @@ import { RequestHandler } from 'express-serve-static-core';
 import { responseBuilder } from '../../../core/common/response-builder';
 import { AdminOrderService } from '../services/admin-order.service';
 
+type AdminOrderParams = {
+  orderId: string;
+};
+
 export class AdminOrderController {
   constructor(
     private adminOrderService: AdminOrderService,
@@ -20,7 +24,7 @@ export class AdminOrderController {
     }
   }
 
-  getById: RequestHandler = async (req, res, next) => {
+  getById: RequestHandler<AdminOrderParams> = async (req, res, next) => {
     try {
       const order_id = req.params.orderId;
       const data = await this.adminOrderService.findById(order_id);
@@ -34,7 +38,7 @@ export class AdminOrderController {
     }
   }
 
-  cancel: RequestHandler = async (req, res, next) => {
+  cancel: RequestHandler<AdminOrderParams> = async (req, res, next) => {
     try {
       const order_id = req.params.orderId;
       const data = await this.adminOrderService.cancelById(order_id);

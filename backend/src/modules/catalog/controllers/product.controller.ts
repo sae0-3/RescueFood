@@ -2,12 +2,16 @@ import { RequestHandler } from 'express';
 import { responseBuilder } from '../../../core/common/response-builder';
 import { ProductService } from '../services/product.service';
 
+type ProductParams = {
+  id: string;
+};
+
 export class ProductController {
   constructor(
     private productService: ProductService,
   ) { }
 
-  getAll: RequestHandler = async (req, res, next) => {
+  getAll: RequestHandler<ProductParams> = async (req, res, next) => {
     try {
       const isClient = req.user?.role === 'client';
       const data = await this.productService.findAll(isClient);
@@ -21,7 +25,7 @@ export class ProductController {
     }
   }
 
-  getById: RequestHandler = async (req, res, next) => {
+  getById: RequestHandler<ProductParams> = async (req, res, next) => {
     try {
       const isClient = req.user?.role === 'client';
       const id = req.params.id;
@@ -36,7 +40,7 @@ export class ProductController {
     }
   }
 
-  getCategoriesById: RequestHandler = async (req, res, next) => {
+  getCategoriesById: RequestHandler<ProductParams> = async (req, res, next) => {
     try {
       const isClient = req.user?.role === 'client';
       const id = req.params.id;
@@ -54,7 +58,7 @@ export class ProductController {
     }
   }
 
-  insert: RequestHandler = async (req, res, next) => {
+  insert: RequestHandler<ProductParams> = async (req, res, next) => {
     try {
       const product = req.body;
       const data = await this.productService.create(product);
@@ -68,7 +72,7 @@ export class ProductController {
     }
   }
 
-  updateById: RequestHandler = async (req, res, next) => {
+  updateById: RequestHandler<ProductParams> = async (req, res, next) => {
     try {
       const id = req.params.id;
       const product = req.body;
@@ -83,7 +87,7 @@ export class ProductController {
     }
   }
 
-  deleteById: RequestHandler = async (req, res, next) => {
+  deleteById: RequestHandler<ProductParams> = async (req, res, next) => {
     try {
       const id = req.params.id;
       await this.productService.delete(id);

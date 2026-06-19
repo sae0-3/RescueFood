@@ -2,6 +2,10 @@ import { RequestHandler } from 'express';
 import { responseBuilder } from '../../../core/common/response-builder';
 import { DealerOrderService } from '../services/dealer-order.service';
 
+type DealerOrderParams = {
+  orderId: string;
+};
+
 export class DealerOrderController {
   constructor(
     private orderService: DealerOrderService
@@ -20,7 +24,7 @@ export class DealerOrderController {
     }
   }
 
-  accepOrder: RequestHandler = async (req, res, next) => {
+  accepOrder: RequestHandler<DealerOrderParams> = async (req, res, next) => {
     try {
       const delivery_id = req.user?.id || '';
       const id = req.params.orderId;
@@ -35,7 +39,7 @@ export class DealerOrderController {
     }
   }
 
-  getOrderLocationInfo: RequestHandler = async (req, res, next) => {
+  getOrderLocationInfo: RequestHandler<DealerOrderParams> = async (req, res, next) => {
     try {
       const delivery_id = req.user?.id || '';
       const id = req.params.orderId;
@@ -50,7 +54,7 @@ export class DealerOrderController {
     }
   }
 
-  getOrderDetails: RequestHandler = async (req, res, next) => {
+  getOrderDetails: RequestHandler<DealerOrderParams> = async (req, res, next) => {
     try {
       const id = req.params.orderId;
       const data = await this.orderService.getOrderDetails(id);
@@ -64,7 +68,7 @@ export class DealerOrderController {
     }
   }
 
-  markOrderAsDelivered: RequestHandler = async (req, res, next) => {
+  markOrderAsDelivered: RequestHandler<DealerOrderParams> = async (req, res, next) => {
     try {
       const delivery_id = req.user?.id || '';
       const id = req.params.orderId;
@@ -79,7 +83,7 @@ export class DealerOrderController {
     }
   }
 
-  getHistory: RequestHandler = async (req, res, next) => {
+  getHistory: RequestHandler<DealerOrderParams> = async (req, res, next) => {
     try {
       const dealer_id = String(req.user?.id);
       const data = await this.orderService.getHistory(dealer_id);
@@ -93,7 +97,7 @@ export class DealerOrderController {
     }
   }
 
-  getOrderFromHistoryById: RequestHandler = async (req, res, next) => {
+  getOrderFromHistoryById: RequestHandler<DealerOrderParams> = async (req, res, next) => {
     try {
       const dealer_id = String(req.user?.id);
       const order_id = req.params.orderId

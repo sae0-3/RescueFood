@@ -2,12 +2,17 @@ import { RequestHandler } from 'express';
 import { responseBuilder } from '../../../core/common/response-builder';
 import { ProductCategoryService } from '../services/product-category.service';
 
+type ProductCategoryParams = {
+  productId: string;
+  categoryId: string;
+};
+
 export class ProductCategoryController {
   constructor(
     private productCategoryService: ProductCategoryService,
   ) { }
 
-  add: RequestHandler = async (req, res, next) => {
+  add: RequestHandler<ProductCategoryParams> = async (req, res, next) => {
     try {
       const product_id = req.params.productId;
       const category_id = req.params.categoryId;
@@ -20,7 +25,7 @@ export class ProductCategoryController {
     }
   }
 
-  remove: RequestHandler = async (req, res, next) => {
+  remove: RequestHandler<ProductCategoryParams> = async (req, res, next) => {
     try {
       const product_id = req.params.productId;
       const category_id = req.params.categoryId;
@@ -33,7 +38,7 @@ export class ProductCategoryController {
     }
   }
 
-  addManyCategories: RequestHandler = async (req, res, next) => {
+  addManyCategories: RequestHandler<ProductCategoryParams> = async (req, res, next) => {
     try {
       const product_id = req.params.productId;
       const { category_ids } = req.body;

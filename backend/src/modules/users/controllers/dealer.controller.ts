@@ -2,6 +2,10 @@ import { RequestHandler } from 'express';
 import { responseBuilder } from '../../../core/common/response-builder';
 import { DealerService } from '../services/dealer.service';
 
+type DealerParams = {
+  id: string;
+};
+
 export class DealerController {
   constructor(
     private dealerService: DealerService,
@@ -17,7 +21,7 @@ export class DealerController {
     }
   }
 
-  getById: RequestHandler = async (req, res, next) => {
+  getById: RequestHandler<DealerParams> = async (req, res, next) => {
     try {
       const id = req.params.id;
       const data = await this.dealerService.findById(id);
@@ -28,7 +32,7 @@ export class DealerController {
     }
   }
 
-  updateById: RequestHandler = async (req, res, next) => {
+  updateById: RequestHandler<DealerParams> = async (req, res, next) => {
     try {
       const id = req.params.id;
       const dealer = req.body;
@@ -40,7 +44,7 @@ export class DealerController {
     }
   }
 
-  deleteById: RequestHandler = async (req, res, next) => {
+  deleteById: RequestHandler<DealerParams> = async (req, res, next) => {
     try {
       const id = req.params.id;
       await this.dealerService.delete(id);

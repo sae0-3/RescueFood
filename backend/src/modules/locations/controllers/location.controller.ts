@@ -2,6 +2,10 @@ import { RequestHandler } from 'express';
 import { LocationService } from '../services/location.service';
 import { responseBuilder } from '../../../core/common/response-builder';
 
+type LocationParams = {
+  id: string;
+};
+
 export class LocationController {
   constructor(
     private locationService: LocationService,
@@ -36,7 +40,7 @@ export class LocationController {
     }
   }
 
-  remove: RequestHandler = async (req, res, next) => {
+  remove: RequestHandler<LocationParams> = async (req, res, next) => {
     try {
       const id = req.params.id;
       const user_id = req.user?.id || '';

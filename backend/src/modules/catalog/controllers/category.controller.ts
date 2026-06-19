@@ -2,12 +2,16 @@ import { RequestHandler } from 'express';
 import { responseBuilder } from '../../../core/common/response-builder';
 import { CategoryService } from '../services/category.service';
 
+type CategoryParams = {
+  id: string;
+};
+
 export class CategoryController {
   constructor(
     private categoryService: CategoryService,
   ) { }
 
-  getAll: RequestHandler = async (req, res, next) => {
+  getAll: RequestHandler<CategoryParams> = async (req, res, next) => {
     try {
       const isClient = req.user?.role === 'client';
       const data = await this.categoryService.findAll(isClient);
@@ -21,7 +25,7 @@ export class CategoryController {
     }
   }
 
-  getById: RequestHandler = async (req, res, next) => {
+  getById: RequestHandler<CategoryParams> = async (req, res, next) => {
     try {
       const isClient = req.user?.role === 'client';
       const id = req.params.id;
@@ -36,7 +40,7 @@ export class CategoryController {
     }
   }
 
-  getProductCategories: RequestHandler = async (req, res, next) => {
+  getProductCategories: RequestHandler<CategoryParams> = async (req, res, next) => {
     try {
       const isClient = req.user?.role === 'client';
       const id = req.params.id;
@@ -51,7 +55,7 @@ export class CategoryController {
     }
   }
 
-  insert: RequestHandler = async (req, res, next) => {
+  insert: RequestHandler<CategoryParams> = async (req, res, next) => {
     try {
       const category = req.body;
       const data = await this.categoryService.create(category);
@@ -65,7 +69,7 @@ export class CategoryController {
     }
   }
 
-  updateById: RequestHandler = async (req, res, next) => {
+  updateById: RequestHandler<CategoryParams> = async (req, res, next) => {
     try {
       const id = req.params.id;
       const category = req.body;
@@ -80,7 +84,7 @@ export class CategoryController {
     }
   }
 
-  deleteById: RequestHandler = async (req, res, next) => {
+  deleteById: RequestHandler<CategoryParams> = async (req, res, next) => {
     try {
       const id = req.params.id;
       await this.categoryService.delete(id);

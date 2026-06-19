@@ -2,6 +2,10 @@ import { RequestHandler } from 'express';
 import { responseBuilder } from '../../../core/common/response-builder';
 import { ClientService } from '../services/client.service';
 
+type ClientParams = {
+  id: string;
+};
+
 export class ClientController {
   constructor(
     private clientService: ClientService,
@@ -17,7 +21,7 @@ export class ClientController {
     }
   }
 
-  getById: RequestHandler = async (req, res, next) => {
+  getById: RequestHandler<ClientParams> = async (req, res, next) => {
     try {
       const id = req.params.id;
       const data = await this.clientService.findById(id);
@@ -28,7 +32,7 @@ export class ClientController {
     }
   }
 
-  updateById: RequestHandler = async (req, res, next) => {
+  updateById: RequestHandler<ClientParams> = async (req, res, next) => {
     try {
       const id = req.params.id;
       const dealer = req.body;
@@ -40,7 +44,7 @@ export class ClientController {
     }
   }
 
-  deleteById: RequestHandler = async (req, res, next) => {
+  deleteById: RequestHandler<ClientParams> = async (req, res, next) => {
     try {
       const id = req.params.id;
       await this.clientService.delete(id);

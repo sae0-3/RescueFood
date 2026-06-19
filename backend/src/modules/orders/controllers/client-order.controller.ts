@@ -2,6 +2,10 @@ import { RequestHandler } from 'express';
 import { responseBuilder } from '../../../core/common/response-builder';
 import { ClientOrderService } from '../services/client-order.service';
 
+type ClientOrderParams = {
+  orderId: string;
+};
+
 export class ClientOrderController {
   constructor(
     private clientOrderService: ClientOrderService,
@@ -21,7 +25,7 @@ export class ClientOrderController {
     }
   }
 
-  getById: RequestHandler = async (req, res, next) => {
+  getById: RequestHandler<ClientOrderParams> = async (req, res, next) => {
     try {
       const client_id = req.user?.id || '';
       const order_id = req.params.orderId;
@@ -51,7 +55,7 @@ export class ClientOrderController {
     }
   }
 
-  cancelById: RequestHandler = async (req, res, next) => {
+  cancelById: RequestHandler<ClientOrderParams> = async (req, res, next) => {
     try {
       const client_id = req.user?.id || '';
       const order_id = req.params.orderId;
