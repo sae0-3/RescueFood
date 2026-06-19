@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "start": "node dist/server.js",
-    "dev": "nodemon --exec ts-node src/server.ts",
-    "build": "tsc",
+    "dev": "nodemon --exec ts-node -r tsconfig-paths/register src/server.ts",
+    "build": "tsc && tsc-alias",
     "test": "jest --watchAll"
   },
   "dependencies": {
@@ -37,6 +37,8 @@
     "supertest": "^7.1.0",
     "ts-jest": "^29.3.1",
     "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.17",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.8.3"
   }
 }

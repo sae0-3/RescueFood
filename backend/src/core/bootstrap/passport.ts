@@ -1,6 +1,6 @@
 import { PassportStatic } from 'passport';
 import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
-import { config } from '../../config/env';
+import { config } from '@/config/env';
 import { UnauthorizedError } from '../errors/app.error';
 import { CustomJwtPayload } from '../types/custom-jwt-payload.type';
 

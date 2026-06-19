@@ -1,9 +1,12 @@
 import { Router } from 'express';
-import { authenticateJwt, requireRole } from '../../core/common/middlewares';
-import { createLocationController } from './locations.bootstrap';
+import { authenticateJwt, requireRole } from '@/core/common/middlewares';
+
+import { createLocationsModule } from './locations.bootstrap';
 
 const router = Router();
-const controller = createLocationController();
+const { controllers: {
+  locationController: controller,
+}} = createLocationsModule();
 
 router.use(authenticateJwt, requireRole(['client']));
 

@@ -1,16 +1,17 @@
 import { Router } from 'express';
-import { authenticateJwt, requireRole } from '../../core/common/middlewares';
-import { createUsersController } from './users.bootstrap';
+import { authenticateJwt, requireRole } from '@/core/common/middlewares';
+
+import { createUsersModule } from './users.bootstrap';
 
 const router = Router();
 const clientRouter = Router();
 const dealerRouter = Router();
 const adminRouter = Router();
-const {
+const { controllers: {
   clientController,
   dealerController,
-  adminController
-} = createUsersController();
+  adminController,
+}} = createUsersModule();
 
 clientRouter.use(authenticateJwt);
 clientRouter.get('/', clientController.getAll)

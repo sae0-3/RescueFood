@@ -1,9 +1,12 @@
 import { Router } from 'express';
-import { authenticateJwt, requireRole } from '../../../core/common/middlewares';
-import { createAuthController } from '../bootstrap';
+import { authenticateJwt, requireRole } from '@/core/common/middlewares';
+
+import { createAuthModule } from './auth.bootstrap';
 
 const router = Router();
-const controller = createAuthController();
+const { controllers: {
+  authController: controller,
+}} = createAuthModule();
 
 router.post('/register', controller.register);
 router.post('/login', controller.login);

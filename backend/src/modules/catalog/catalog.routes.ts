@@ -1,15 +1,16 @@
 import { Router } from 'express';
-import { authenticateJwt, requireRole } from '../../core/common/middlewares';
-import { createCatalogController } from './catalog.bootstrap';
+import { authenticateJwt, requireRole } from '@/core/common/middlewares';
+
+import { createCatalogModule } from './catalog.bootstrap';
 
 const router = Router();
 const productRouter = Router();
 const categoryRouter = Router();
-const {
+const { controllers: {
   categoryController,
   productController,
-  productCategoryController
-} = createCatalogController();
+  productCategoryController,
+}} = createCatalogModule();
 
 router.use(authenticateJwt);
 

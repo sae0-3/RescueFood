@@ -1,9 +1,10 @@
 import { Express } from 'express';
-import authRoutes from '../../modules/auth/routes/auth.routes';
-import catalogRoutes from '../../modules/catalog/catalog.routes';
-import locationsRoutes from '../../modules/locations/locations.routes';
-import usersRoutes from '../../modules/users/users.routes';
-import ordersRoutes from '../../modules/orders/orders.routes';
+
+import authRoutes from '@/modules/auth/auth.routes';
+import catalogRoutes from '@/modules/catalog/catalog.routes';
+import locationsRoutes from '@/modules/locations/locations.routes';
+import usersRoutes from '@/modules/users/users.routes';
+import ordersRoutes from '@/modules/orders/orders.routes';
 
 export const registerRoutes = (app: Express) => {
   app.use('/api/auth', authRoutes);
@@ -12,7 +13,7 @@ export const registerRoutes = (app: Express) => {
   app.use('/api/orders', ordersRoutes);
   app.use('/api/locations', locationsRoutes);
 
-  app.get('/api/health', (req, res) => {
+  app.get('/api/health', (_, res) => {
     res.status(200).json({ status: 'ok' });
   });
 };
